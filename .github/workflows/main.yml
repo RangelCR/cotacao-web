@@ -1,0 +1,27 @@
+name: deploy-cotacao
+on:
+  push:
+    branches: main
+  workflow_dispatch:
+
+jobs: 
+  CI:
+    name: CI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obtendo o código
+        uses: actions/checkout@v5.0.0
+      - name: autenticando no docker hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Construção e push da imagem
+        uses: docker/build-push-action@v6.18.0
+        with:
+          context: ./
+          file: ./Dockerfile
+          push: true
+          tags: |
+            rangelcr/api_cotacao:v${{ github.run_number }}
+            rangelcr/api_cotacao:latest
