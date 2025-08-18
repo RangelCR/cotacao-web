@@ -7,6 +7,24 @@ const PORT = process.env.PORT || 3000;
 
 let lastData = { USDBRL: 0, EURBRL: 0, BTCBRL: 0 };
 
+// rota health check
+app.get("/health", (req, res) => {
+  res.status(200).send(`
+    <div style="
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      background: #10b981;
+      color: white;
+      font-weight: bold;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    ">🟢 OK</div>
+  `);
+});
+
 app.get("/cotacoes", async (req, res) => {
   try {
     const url =
@@ -88,7 +106,7 @@ app.get("/", (req, res) => {
           </tr>
         </thead>
         <tbody id="tabela">
-          <tr><td>Dólar V2(USD)</td><td id="usd">-</td><td id="usd-diff">-</td></tr>
+          <tr><td>Dólar (USD)</td><td id="usd">-</td><td id="usd-diff">-</td></tr>
           <tr><td>Euro (EUR)</td><td id="eur">-</td><td id="eur-diff">-</td></tr>
           <tr><td>Bitcoin (BTC)</td><td id="btc">-</td><td id="btc-diff">-</td></tr>
         </tbody>
