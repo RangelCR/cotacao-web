@@ -30,10 +30,9 @@ metadata:
 spec:
   selector:
     app: cotacao
-  type: NodePort
+  type: LoadBalancer
   ports:
-  - port: 80
-    targetPort: 3000
+  - port: 80          # Porta exposta pelo LoadBalancer
+    targetPort: 3000  # Porta onde o container escuta
     name: http
     protocol: TCP
-    nodePort: 30000
