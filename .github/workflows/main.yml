@@ -1,7 +1,5 @@
 name: deploy-cotacao
 on:
-  push:
-    branches: main
   workflow_dispatch:
 
 jobs: 
