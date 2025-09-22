@@ -1,7 +1,6 @@
 name: deploy-cotacao
 on:
   workflow_dispatch:
-
 jobs: 
   CI:
     name: CI
@@ -21,23 +20,13 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            rangelcr/api_cotacao:v${{ github.run_number }}
-            rangelcr/api_cotacao:latest
+            rangelcr/web_cotacao:v${{ github.run_number }}
+            rangelcr/web_cotacao:latest
   CD:
     runs-on: ubuntu-latest
     needs: [CI]
-    steps:
-    - name: obtendo o código
-      uses: actions/checkout@v4.2.2    
-    - name: Configurando contexto do k8s
-      uses: Azure/k8s-set-context@v4.0.0
-      with:
-        method: kubeconfig
-        kubeconfig: ${{ secrets.K8S_CONFIG }}
-    - name: Aplicando manifesto
-      uses: Azure/k8s-deploy@v5
-      with:
-       manifests: |
-          ./deploy.yaml
-       images: | 
-          rangelcr/conversao-temperatura:v${{ github.run_number }}
+        uses: RangelCR/cotacao-web/.github/workflows/deploy.yaml@main
+    with:
+      manifests: k8s/deploy.yaml
+      images: rangelcr/web_cotacao:v${{ github.run_number }}
+    secrets: inherit  
