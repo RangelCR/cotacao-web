@@ -23,6 +23,13 @@ jobs:
           tags: |
             rangelcr/web_cotacao:v${{ github.run_number }}
             rangelcr/web_cotacao:latest
+      - name: Scan Docker image with Trivy
+        uses: aquasecurity/trivy-action@v2
+        with:
+          image-ref: myuser/myapp:latest
+          format: table
+          exit-code: 1
+          severity: HIGH,CRITICAL 
   CD:
     needs: [CI]
     uses: RangelCR/cotacao-web/.github/workflows/deploy.yaml@main
