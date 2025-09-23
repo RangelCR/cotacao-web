@@ -26,10 +26,10 @@ jobs:
       - name: Scan Docker image with Trivy
         uses: lazy-actions/gitrivy@v3
         with:
-          image-ref: myuser/myapp:latest
-          format: table
-          exit-code: 1
-          severity: HIGH,CRITICAL 
+          token: ${{ secrets.GITHUB_TOKEN }}
+          image: rangelcr/web_cotacao:latest 
+          severity: HIGH,CRITICAL
+          exit-code: 1  
   CD:
     needs: [CI]
     uses: RangelCR/cotacao-web/.github/workflows/deploy.yaml@main
