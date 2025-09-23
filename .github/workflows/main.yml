@@ -28,7 +28,6 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           image: rangelcr/web_cotacao:latest 
-          severity: HIGH,CRITICAL
           exit-code: 1  
   CD:
     needs: [CI]
