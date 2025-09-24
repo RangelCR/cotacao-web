@@ -1,5 +1,5 @@
 # Build Node.js
-FROM node:24-alpine AS build
+FROM node:24-alpine:3.21 AS build
 
 WORKDIR /app
 COPY package*.json ./
@@ -7,7 +7,7 @@ RUN npm install
 COPY . .
 
 # Container final com Node.js + Nginx como proxy reverso
-FROM nginx:1.27-alpine
+FROM nginx:1.29.1-alpine
 
 # Criação do usuário e grupo
 RUN addgroup -S node_group && adduser -S node_user -G node_group
