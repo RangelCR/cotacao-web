@@ -8,6 +8,7 @@ COPY . .
 
 # Container final com Node.js + Nginx como proxy reverso
 FROM nginx:alpine
+RUN apk update && apk upgrade
 
 # Criação do usuário e grupo
 RUN addgroup -S node_group && adduser -S node_user -G node_group
