@@ -1,5 +1,5 @@
 # Build Node.js
-FROM node:24-alpine:3.21 AS build
+FROM node:24-alpine3.21 AS build
 
 WORKDIR /app
 COPY package*.json ./
