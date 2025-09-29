@@ -40,7 +40,7 @@ jobs:
         with:
           manifests: k8s/deploy-ingress-controller.yaml
           images: rangelcr/web_cotacao:v${{ github.run_number }}
-          secrets: inherit
+        secrets: inherit
   
       - name: Wait for Ingress Controller
         run: |
@@ -55,5 +55,5 @@ jobs:
             k8s/deploy.yaml
             k8s/ingress-path.yaml
           images: rangelcr/web_cotacao:v${{ github.run_number }}
-          secrets: inherit
+        secrets: inherit
 
