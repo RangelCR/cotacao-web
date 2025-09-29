@@ -33,27 +33,10 @@ jobs:
           severity: 'CRITICAL,HIGH'
   CD:
     needs: [CI]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy Ingress Controller
-        uses: RangelCR/cotacao-web/.github/workflows/deploy.yaml@main
-        with:
-          manifests: k8s/deploy-ingress-controller.yaml
-          images: rangelcr/web_cotacao:v${{ github.run_number }}
-        secrets: inherit
-  
-      - name: Wait for Ingress Controller
-        run: |
-          kubectl wait --namespace ingress-nginx \
-            --for=condition=available deployment/ingress-nginx-controller \
-            --timeout=90s
-  
-      - name: Deploy App + Ingress
-        uses: RangelCR/cotacao-web/.github/workflows/deploy.yaml@main
-        with:
-          manifests: |
-            k8s/deploy.yaml
-            k8s/ingress-path.yaml
-          images: rangelcr/web_cotacao:v${{ github.run_number }}
-        secrets: inherit
+    uses: RangelCR/cotacao-web/.github/workflows/deploy.yaml@main
+    with:
+      manifests: k8s/deploy.yaml
+      images: rangelcr/web_cotacao:v${{ github.run_number }}
+    secrets: inherit  
+
 
