@@ -31,12 +31,28 @@ jobs:
           exit-code: '1'
           vuln-type: 'os,library'          
           severity: 'CRITICAL,HIGH'
-  CD:
+  CD-Controller:
     needs: [CI]
     uses: RangelCR/cotacao-web/.github/workflows/deploy.yaml@main
     with:
-      manifests: k8s/deploy.yaml
+      manifests: k8s/deploy-ingress-controller.yaml
       images: rangelcr/web_cotacao:v${{ github.run_number }}
-    secrets: inherit  
-
+    secrets: inherit
+  
+  Wait-Controller:
+    needs: [CD-Controller]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for Controller to be ready
+        run: sleep 120
+  
+  CD-App:
+    needs: [Wait-Controller]
+    uses: RangelCR/cotacao-web/.github/workflows/deploy.yaml@main
+    with:
+      manifests: |
+        k8s/deploy.yaml
+        k8s/ingress-path.yaml
+      images: rangelcr/web_cotacao:v${{ github.run_number }}
+    secrets: inherit
 
