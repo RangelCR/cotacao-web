@@ -36,7 +36,7 @@ jobs:
     uses: RangelCR/cotacao-web/.github/workflows/deploy.yaml@main
     with:
       manifests: k8s/deploy-ingress-controller.yaml
-      images: rangelcr/web_cotacao:v${{ github.run_number }}
+      images: ""
     secrets: inherit
   
   Wait-Controller:
@@ -51,8 +51,11 @@ jobs:
     uses: RangelCR/cotacao-web/.github/workflows/deploy.yaml@main
     with:
       manifests: |
+        k8s/namespace.yaml     
+        k8s/ingress-path.yaml    
+        k8s/service.yaml    
         k8s/deploy.yaml
-        k8s/ingress-path.yaml
+
       images: rangelcr/web_cotacao:v${{ github.run_number }}
     secrets: inherit
 
