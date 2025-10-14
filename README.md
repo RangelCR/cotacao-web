@@ -3,5 +3,5 @@ A aplicação consulta uma api publica de cotação de moedas e grava uma tabela
 A pipeline automatiza:
  Build da imagem da aplicação.
  Push da imagem para o Docker Hub.
- Deploy automatizado no cluster Kubernetes, aplicando os manifestos necessários.
+ Deploy automatizado no cluster Kubernetes (EKS - AWS), aplicando os manifestos necessários.
 Este projeto tem foco didático e foi criado para praticar integração contínua, entrega contínua e deploy em Kubernetes em um ambiente gerenciado.
